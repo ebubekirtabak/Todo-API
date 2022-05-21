@@ -1,0 +1,34 @@
+{
+  "name": "todo-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebubekirtabak/Todo-API.git"
+  },
+  "author": "Ebubekir Tabak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebubekirtabak/Todo-API/issues"
+  },
+  "homepage": "https://github.com/ebubekirtabak/Todo-API#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "graphql": "^16.5.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.35",
+    "concurrently": "^7.2.0",
+    "nodemon": "^2.0.16",
+    "typescript": "^4.6.4"
+  }
+}
