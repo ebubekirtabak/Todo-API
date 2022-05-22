@@ -28,7 +28,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Model } from 'objection';
-import { body } from 'express-validator';
+import { checkSchema } from 'express-validator';
 const { knex } = require('./db/db');
 const { signUpUser } = require('./routes/signup');
 
@@ -45,8 +45,28 @@ app.get('/', async (req: Request, res: Response) => {
 
 app.put(
   '/signup',
-  body('email').isEmail(),
-  body('password').isLength({ min: 6 }),
+  checkSchema({
+    password: {
+      isString: true,
+      isLength: {
+        errorMessage: 'Password should be at least 6 chars long',
+        // Multiple options would be expressed as an array
+        options: { min: 6 },
+      },
+    },
+    name: {
+      isString: true,
+      isLength: { 
+        errorMessage: 'Name can not be longer than 80 characters',
+        options: { max: 80 },
+      }
+    },
+    email: {
+      isEmail: {
+        bail: true,
+      },
+    },
+  }),
   signUpUser
 );
 
