@@ -19,7 +19,8 @@ module.exports = {
       if (userResponse.length > 0) {
         const currentUser = userResponse[0];
         delete currentUser.password;
-        currentUser.token = generateUserToken(currentUser);
+        currentUser.token = generateUserToken(currentUser, '30d', process.env.JWT_SECRET_KEY);
+        currentUser.refreshToken = generateUserToken(currentUser, '60d', process.env.JWT_REFRESH_SECRET_KEY);
         response.status(200).json({ status: 'success', message: 'ok.', user: currentUser });
       } else {
         response.status(200).send({ status: 'error', message: 'email or password is wrong.' });
