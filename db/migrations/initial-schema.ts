@@ -5,6 +5,7 @@ exports.up = (knex: any) => {
     table.increments('id').primary();
 
     table.string('email');
+    table.string('name');
     table.string('password');
     table.timestamp('created_date');
     table.unique(['email']);
