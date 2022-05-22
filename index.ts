@@ -31,6 +31,7 @@ import { Model } from 'objection';
 import { checkSchema } from 'express-validator';
 const { knex } = require('./db/db');
 const { signUpUser } = require('./routes/signup');
+const { loginUser } = require('./routes/login');
 
 dotenv.config();
 const app: Express = express();
@@ -68,6 +69,24 @@ app.put(
     },
   }),
   signUpUser
+);
+app.post(
+  '/login',
+  checkSchema({
+    password: {
+      isString: true,
+      isLength: {
+        errorMessage: 'Password should be at least 6 chars long',
+        options: { min: 6 },
+      },
+    },
+    email: {
+      isEmail: {
+        bail: true,
+      },
+    },
+  }),
+  loginUser
 );
 
 app.listen(port, () => {
