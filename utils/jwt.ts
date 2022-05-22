@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = {
-  generateUserToken: (user: any, expiresIn: string): string => {
+  generateUserToken: (user: any, expiresIn: string = '30d'): string => {
     const { id, email } = user;
     const token = jwt.sign(
       { user_id: id, email },
