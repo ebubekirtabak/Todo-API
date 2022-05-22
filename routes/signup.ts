@@ -11,10 +11,10 @@ module.exports = {
     }
 
     const { body } = request;
-    const { email, password } = body;
+    const { email, password, name } = body;
     try {
       await knex('users')
-      .insert({ email, password: encodePassword(password) });
+      .insert({ email, password: encodePassword(password), name });
       response.status(200).json({ status: 'success', message: 'user created.' });
     } catch (error: any) {
       response.status(400).send({ status: 'error', message: error.detail });
