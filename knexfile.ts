@@ -1,7 +1,7 @@
 import type { Knex } from "knex";
 require('dotenv').config()
 
-const { PGDATABASE, PGUSER, PGPASSWORD, PGHOST, PGPORT } = process.env;
+const { PGDATABASE, PGUSER, PGPASSWORD, PGHOST, PGPORT = 5342 } = process.env;
 
 // Update with your config settings.
 
@@ -13,7 +13,7 @@ const config: { [key: string]: Knex.Config } = {
       user: PGUSER,
       password: PGPASSWORD,
       host: PGHOST,
-      port: PGPORT,
+      port: PGPORT as number,
     },
     migrations: {
         directory: __dirname + '/db/migrations',
@@ -30,7 +30,7 @@ const config: { [key: string]: Knex.Config } = {
       user: PGUSER,
       password: PGPASSWORD,
       host: PGHOST,
-      port: PGPORT,
+      port: PGPORT as number,
     },
     migrations: {
         directory: __dirname + '/db/migrations',
@@ -47,7 +47,7 @@ const config: { [key: string]: Knex.Config } = {
       user: PGUSER,
       password: PGPASSWORD,
       host: PGHOST,
-      port: PGPORT,
+      port: PGPORT as number,
     },
     migrations: {
         directory: __dirname + '/db/migrations',
