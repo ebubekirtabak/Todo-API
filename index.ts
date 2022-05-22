@@ -20,7 +20,7 @@ const knex = require('knex')({
 });
 Model.knex(knex);
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/', async (req: Request, res: Response) => {
   console.log(req.url);
   res.send('Express + TypeScript Server');
 });
