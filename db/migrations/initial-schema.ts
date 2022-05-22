@@ -1,16 +1,7 @@
 exports.up = (knex: any) => {
   
   // Create the tasks table
-  return knex.schema.createTable('tasks', (table: any) => {
-    table.increments('id').primary();
-
-    table.integer('userId').references('users.id');
-    table.string('text');
-    table.timestamp('created_date');
-    table.boolean('isChecked');
-    table.unique(['id']);
-  })
-  .createTable('users', (table: any) => {
+  return knex.schema.createTable('users', (table: any) => {
     table.increments('id').primary();
 
     table.string('email');
@@ -18,6 +9,15 @@ exports.up = (knex: any) => {
     table.timestamp('created_date');
     table.unique(['email']);
   })
+  .createTable('tasks', (table: any) => {
+    table.increments('id').primary();
+
+    table.integer('userId').references('users.id');
+    table.string('text');
+    table.timestamp('created_date');
+    table.boolean('isChecked');
+    table.unique(['id']);
+  });
 };
   
 exports.down = (knex: any) => {
