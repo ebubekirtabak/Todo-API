@@ -1,30 +1,3 @@
-// var { graphql, buildSchema } = require('graphql');
-
-// Construct a schema, using GraphQL schema language
-// var schema = buildSchema(`
-//   type Query {
-//     hello: String
-//   }
-// `);
-
-// // The rootValue provides a resolver function for each API endpoint
-// var rootValue = {
-//   hello: () => {
-//     return 'Hello world!';
-//   },
-// };
-
-// // Run the GraphQL query '{ hello }' and print out the response
-// graphql({
-//   schema,
-//   source: '{ hello }',
-//   rootValue
-// }).then((response) => {
-//   console.log(response);
-// });
-
-
-
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Model } from 'objection';
@@ -88,6 +61,35 @@ app.post(
   }),
   loginUser
 );
+
+// var { graphqlHTTP } = require('express-graphql');
+// var { buildSchema } = require('graphql');
+
+// var schema = buildSchema(`
+//   type Query {
+//     email: String,
+//     name: String,
+//     password: String
+//   }
+// `);
+
+// const loggingMiddleware = (req: Request, res: Response, next: any) => {
+//   console.log('ip:', req.ip);
+//   next();
+// }
+
+// var root = {
+//   ip: function (args, request) {
+//     return request.ip;
+//   }
+// };
+
+// app.use(loggingMiddleware);
+// app.use('/graphql-signup', graphqlHTTP({
+//   schema: schema,
+//   rootValue: root,
+//   graphiql: true,
+// }));
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
