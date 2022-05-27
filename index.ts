@@ -5,6 +5,7 @@ import { checkSchema } from 'express-validator';
 const { knex } = require('./db/db');
 const { signUpUser } = require('./routes/signup');
 const { loginUser } = require('./routes/login');
+const { refreshToken } = require('./routes/refreshToken');
 
 dotenv.config();
 const app: Express = express();
@@ -17,6 +18,18 @@ app.get('/', async (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
 
+app.put(
+  '/auth/refreshToken',
+  checkSchema({
+    token: {
+      isString: true,
+    },
+    refreshToken: {
+      isString: true,
+    },
+  }),
+  refreshToken
+);
 app.put(
   '/signup',
   checkSchema({
