@@ -16,12 +16,15 @@ module.exports = {
     );
     return token;
   },
-  decodeUserToken: (token: string): any => {
+  decodeUserToken: (
+    token: string,
+    secretKey: string  = process.env.JWT_SECRET_KEY as string
+  ): any => {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const decoded = jwt.verify(token, secretKey);
       return decoded;
     } catch (err) {
       return null;
     }
-  }
+  },
 };
