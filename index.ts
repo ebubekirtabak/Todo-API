@@ -3,9 +3,11 @@ import dotenv from 'dotenv';
 import { Model } from 'objection';
 import { checkSchema } from 'express-validator';
 const { knex } = require('./db/db');
-const { signUpUser } = require('./routes/signup');
-const { loginUser } = require('./routes/login');
-const { refreshToken } = require('./routes/refreshToken');
+const { 
+  signUpUser,
+  loginUser,
+  refreshToken,
+ } = require('./routes/index');
 
 dotenv.config();
 const app: Express = express();
