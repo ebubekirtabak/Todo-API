@@ -1,3 +1,29 @@
+// var { graphql, buildSchema } = require('graphql');
+
+// Construct a schema, using GraphQL schema language
+// var schema = buildSchema(`
+//   type Query {
+//     hello: String
+//   }
+// `);
+
+// // The rootValue provides a resolver function for each API endpoint
+// var rootValue = {
+//   hello: () => {
+//     return 'Hello world!';
+//   },
+// };
+
+// // Run the GraphQL query '{ hello }' and print out the response
+// graphql({
+//   schema,
+//   source: '{ hello }',
+//   rootValue
+// }).then((response) => {
+//   console.log(response);
+// });
+
+
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Model } from 'objection';
@@ -7,7 +33,9 @@ const {
   signUpUser,
   loginUser,
   refreshToken,
+  createTask,
  } = require('./routes/index');
+const { verifyToken } = require('./middleware/verifyAuth');
 
 dotenv.config();
 const app: Express = express();
@@ -19,6 +47,12 @@ app.get('/', async (req: Request, res: Response) => {
   console.log(req.url);
   res.send('Express + TypeScript Server');
 });
+
+app.put(
+  '/task/create',
+  verifyToken,
+  createTask,
+);
 
 app.put(
   '/auth/refreshToken',
