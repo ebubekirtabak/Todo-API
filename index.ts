@@ -51,6 +51,11 @@ app.get('/', async (req: Request, res: Response) => {
 app.put(
   '/task/create',
   verifyToken,
+  checkSchema({
+    title: {
+      isString: true,
+    },
+  }),
   createTask,
 );
 
