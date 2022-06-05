@@ -21,4 +21,28 @@ module.exports = {
       response.status(200).json({ statusCode: 400 });
     }
   },
+  fetchTaskById: async (request: Request, response: Response) => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array() });
+    }
+
+    const { params } = request; 
+    const { id } = params;
+    const { userId } = response.locals;
+    try {
+      knex('tasks')
+        .where({ 
+          ...(id && { id }),
+          userId 
+        })
+        .then((rows: any[]) => {
+          console.log(rows);
+          response.status(200).json({ statusCode: 200, task: rows });
+        })
+    } catch(err) {
+      console.log(err);
+      response.status(200).json({ statusCode: 400 });
+    }
+  },
 };
