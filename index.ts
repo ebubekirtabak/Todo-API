@@ -35,6 +35,7 @@ const {
   refreshToken,
   createTask,
   fetchTaskById,
+  deleteTaskById,
  } = require('./routes/index');
 const { verifyToken } = require('./middleware/verifyAuth');
 
@@ -70,6 +71,17 @@ app.get(
     },
   }),
   fetchTaskById,
+);
+
+app.delete(
+  '/task/:id',
+  verifyToken,
+  checkSchema({
+    id: {
+      isNumeric: true,
+    },
+  }),
+  deleteTaskById,
 );
 
 app.put(

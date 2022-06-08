@@ -45,4 +45,31 @@ module.exports = {
       response.status(200).json({ statusCode: 400 });
     }
   },
+  deleteTaskById: async (request: Request, response: Response) => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array() });
+    }
+
+    const { params } = request; 
+    const { id } = params;
+    const { userId } = response.locals;
+
+    try { 
+      const result = await knex('tasks')
+      .del() 
+      .where({ 
+        ...(id && { id }),
+        userId 
+      });
+      if (result) {
+        response.status(200).json({ statusCode: 200, id });
+      } else {
+        response.status(200).json({ statusCode: 400, message: 'Record could not be deleted.' });
+      }
+    } catch (err) {
+      console.log(err);
+      response.status(200).json({ statusCode: 400 });
+    }
+  },
 };
