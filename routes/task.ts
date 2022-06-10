@@ -45,6 +45,34 @@ module.exports = {
       response.status(200).json({ statusCode: 400 });
     }
   },
+  updateTaskById: async (request: Request, response: Response) => {
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      return response.status(400).json({ errors: errors.array() });
+    }
+
+    const { body } = request; 
+    const { title, id } = body;
+    const { userId } = response.locals;
+    try {
+      const result = await knex('tasks')
+      .where({ 
+        ...(id && { id }),
+        userId 
+      })
+      .update({ 
+        text: title 
+      }, ['id', 'text']);
+      if (result && result.length > 0) {
+        response.status(200).json({ statusCode: 200, id });
+      } else {
+        response.status(200).json({ statusCode: 400, message: 'Record could not be updated.' });
+      }
+    } catch (err: any ) {
+      console.log(err);
+      response.status(200).json({ statusCode: 400, message: err.message });
+    }
+  },
   deleteTaskById: async (request: Request, response: Response) => {
     const errors = validationResult(request);
     if (!errors.isEmpty()) {

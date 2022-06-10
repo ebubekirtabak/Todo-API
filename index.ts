@@ -36,6 +36,7 @@ const {
   createTask,
   fetchTaskById,
   deleteTaskById,
+  updateTaskById,
  } = require('./routes/index');
 const { verifyToken } = require('./middleware/verifyAuth');
 
@@ -59,6 +60,20 @@ app.post(
     },
   }),
   createTask,
+);
+
+app.put(
+  '/task',
+  verifyToken,
+  checkSchema({
+    title: {
+      isString: true,
+    },
+    id: {
+      isNumeric: true,
+    },
+  }),
+  updateTaskById,
 );
 
 app.get(
