@@ -50,8 +50,8 @@ app.get('/', async (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
 
-app.put(
-  '/task/create',
+app.post(
+  '/task',
   verifyToken,
   checkSchema({
     title: {
